@@ -4,7 +4,7 @@ import cors from "cors"
 
 const app = express()
 const PORT = process.env.PORT || 5001
-const FASTAPI_URL = "http://127.0.0.1:8000"
+const FASTAPI_URL = "https://ml.pinjemin.site"
 
 app.use(cors())
 app.use(express.json())
