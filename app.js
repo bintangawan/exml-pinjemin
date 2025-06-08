@@ -113,6 +113,15 @@ app.post("/api/refresh_data", async (req, res) => {
   }
 })
 
+// Route untuk health check
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Server express fastapi berjalan dengan baik',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Express server running at http://localhost:${PORT}`)
 })
