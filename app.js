@@ -6,8 +6,22 @@ const app = express()
 const PORT = process.env.PORT || 5001
 const FASTAPI_URL = "https://ml.pinjemin.site"
 
-app.use(cors())
 app.use(express.json())
+
+const allowedOrigins = ["https://pinjemin.netlify.app"]
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}))
 
 // POST /api/recommend/user
 app.post("/api/recommend/user", async (req, res) => {
@@ -122,6 +136,6 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Express server running at http://localhost:${PORT}`)
 })
